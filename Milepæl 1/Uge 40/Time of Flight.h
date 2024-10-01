@@ -1,8 +1,5 @@
 #include <iostream>
 
-
-
-
 int main()
 {
 // Deklarer variabler 
