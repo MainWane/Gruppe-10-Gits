@@ -1,5 +1,6 @@
 #include <iostream>
 
+// H-broens datastruktur defineres
 struct hbridge
 {
     const int motorPinA1;
@@ -8,6 +9,7 @@ struct hbridge
     const int motorPinB2;
 };
 
+// Værdier til hver motor
 struct direction 
 { 
     bool A1Val;
@@ -16,6 +18,7 @@ struct direction
     bool B2Val;
 };
 
+// initialiserer motorer
 void printMotorPins(hbridge motorPins) 
 {
     std::cout << motorPins.motorPinA1 << std::endl;
