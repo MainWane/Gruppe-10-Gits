@@ -1,28 +1,30 @@
 #include <Arduino.h>
-
-
-#define LED 19
-
+#include <iostream>
+// Define two LED pins separately
+#define LED1 14
+#define LED2 27
 
 void setup() {
-  // set the LED as an output
-  pinMode(LED, OUTPUT);
+  // Set the LED pins as output
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+analogWrite(LED2, 0);  // Set LED2 to PWM value of 0 (off)
 }
 
-
 void loop(){
-  // increase the LED brightness
+  // Increase the brightness of both LEDs
   for(int dutyCycle = 0; dutyCycle <= 255; dutyCycle++){  
-    // changing the LED brightness with PWM
-    analogWrite(LED, dutyCycle);
-    delay(40);
+    // Change LED brightness with PWM
+    analogWrite(LED1, dutyCycle);
+    delay(40); 
   }
 
-
-  // decrease the LED brightness
-  for(int dutyCycle = 255; dutyCycle >= 0; dutyCycle--){
-    // changing the LED brightness with PWM
-    analogWrite(LED, dutyCycle);
+  // Decrease the brightness of both LEDs
+  for(int dutyCycle = 255; dutyCycle >= 0; dutyCycle--){  
+    // Change LED brightness with PWM
+    analogWrite(LED1, dutyCycle);
     delay(40);
+  
   }
+
 }

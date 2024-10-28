@@ -13,3 +13,4 @@ a = a + 3;
 result = a - b; // resultat udregnes
 std::cout << result; // print resultatet
 }
+
