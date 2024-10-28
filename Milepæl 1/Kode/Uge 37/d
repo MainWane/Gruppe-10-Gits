@@ -1,0 +1,61 @@
+#include <iostream>
+
+class Kunde {
+public:
+    double formue = 0;
+    int abonnement = 0;
+    double rente = 0;
+
+    void indsæt_penge(double);
+    void beregn_abonnement();
+    void beregn_rente();
+};
+
+void Kunde::indsæt_penge(double beløb) {
+    formue += beløb;
+}
+
+void Kunde::beregn_abonnement() {
+    if (formue < 100000.0) {
+        abonnement = 0;
+    }
+    else if (formue > 100000.0 && formue < 250000.0) {
+        abonnement = 50;
+    }
+    else if (formue >= 250000.0) {
+        abonnement = 100;
+    }
+}
+
+void Kunde::beregn_rente() {
+    if (formue < 100000.0) {
+        rente = 0.01; // eksempelrente
+    }
+    else if (formue >= 100000.0 && formue < 250000.0) {
+        rente = 0.02; // eksempelrente
+    }
+    else {
+        rente = 0.03; // eksempelrente
+    }
+}
+
+int main() {
+    Kunde ucl;
+    std::cout << "Initial formue: " << ucl.formue << std::endl;
+
+    ucl.formue = 50000.0;
+    ucl.beregn_abonnement();
+    ucl.beregn_rente();
+    std::cout << "Formue: " << ucl.formue << std::endl; 
+    std::cout << "Abonnement: " << ucl.abonnement << std::endl;
+    std::cout << "Rente: " << ucl.rente << std::endl;
+
+    ucl.indsæt_penge(100000.0);
+    ucl.beregn_abonnement();
+    ucl.beregn_rente();
+    std::cout << "Formue: " << ucl.formue << std::endl;
+    std::cout << "Abonnement: " << ucl.abonnement << std::endl;
+    std::cout << "Rente: " << ucl.rente << std::endl;
+
+    return 0;
+}
