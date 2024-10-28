@@ -20,12 +20,10 @@ if (formue < 100000)
     rente = formue * (2.5 / 100);
 }
 
-
 else if (formue > 100000 & formue < 250000)
 {
     rente = formue * (3.75 / 100);
 }
-
 
 else if (formue > 250000)
 {

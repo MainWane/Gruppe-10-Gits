@@ -1,0 +1,39 @@
+#include <iostream>
+
+// Klasse for Rover
+class Rover {
+// Ikke synlige atributter (private scope)
+private:
+// HBro defineres
+int HPins_array_front [2] = {14, 16};
+int HPins_array_bag [2] = {18, 20};
+// Sensor defineres
+int sensor_højre [2] = {21, 22};
+int sensor_venstre [2] = {22, 21};
+
+
+// Synlige atributter (public scope)
+public:
+//  Hastighed
+int Speed;
+// Batteri-niveau
+int Battery;
+// Joystick tilkobling
+bool Joystick;
+// Arm position i grader
+int ArmStatus; 
+
+// Fremad funktion (method)
+void forward (int);
+
+};
+
+void Rover::forward(int Speed) {
+   std::cout << HPins_array_front [0] << std::endl;
+} 
+
+// ufærdig kode til at styre roveren med class
+int main () {
+Rover rover;
+
+}
