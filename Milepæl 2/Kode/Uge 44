@@ -4,10 +4,10 @@
 class Rover {
 // Ikke synlige atributter (private scope)
 private:
-// HBro defineres
+// HBro defineres med array
 int HPins_array_front [2] = {14, 16};
 int HPins_array_bag [2] = {18, 20};
-// Sensor defineres
+// Sensor defineres med array
 int sensor_højre [2] = {21, 22};
 int sensor_venstre [2] = {22, 21};
 

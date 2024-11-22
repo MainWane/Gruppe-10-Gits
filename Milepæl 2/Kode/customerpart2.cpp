@@ -2,8 +2,8 @@
 
 class Kunde {
 public:
-    int rente;
-    double formue = 100100;
+    double rente;
+    double formue = 0;
     int abonnement;
     void indsæt_penge(double);
     void beregn_abonnement();
@@ -45,12 +45,10 @@ int main() {
     ucl.beregn_abonnement();
     std::cout << ucl.formue << std::endl;
     std::cout << ucl.abonnement << std::endl;
-    ucl.indsæt_penge(100000.0);
-    ucl.beregn_abonnement();
     ucl.beregn_rente();
     std::cout << ucl.rente << std::endl;
     std::cout << ucl.formue << std::endl;
-    std::cout << ucl.abonnement << std::endl;
+
 
     return 0;
 }
