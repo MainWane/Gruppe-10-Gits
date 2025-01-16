@@ -1,0 +1,167 @@
+#include <Arduino.h>
+
+
+// Motor 1 Pins (Front Left)
+#define IN1 14 // Connect to B1-A on H-bridge
+#define IN2 27 // Connect to B1-B on H-bridge
+
+
+// Motor 2 Pins (Back Right)
+#define IN3 26 // Connect to B2-A on H-bridge
+#define IN4 25 // Connect to B2-B on H-bridge
+
+
+// Motor 3 Pins (Back Left)
+#define IN5 2  // Connect to A1-A on H-bridge
+#define IN6 4  // Connect to A1-B on H-bridge
+
+
+// Motor 4 Pins (Front Right)
+#define IN8 33
+#define IN7 32
+
+
+// Connect to A2-A on H-bridge
+// Connect to A2-B on H-bridge
+
+
+// Function prototypes
+void stopAllMotors();
+void driveForward(int duration);
+void driveReverse(int duration);
+void turnSharpRight(int duration);
+void turnSharpLeft(int duration);
+void turnSoftRight(int duration);
+
+
+void setup() {
+  // Set all motor control pins as output
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+  pinMode(IN5, OUTPUT);
+  pinMode(IN6, OUTPUT);
+  pinMode(IN7, OUTPUT);
+  pinMode(IN8, OUTPUT);
+
+
+  // Stop all motors at the beginning
+  stopAllMotors();
+}
+
+
+void loop() {
+  // Test the functions sequentially
+  driveForward(5000);   // Drive forward for 5 seconds
+  turnSharpRight(2200); // Sharp right turn for 2.2 seconds
+  driveForward(5000);   // Drive forward for 5 seconds
+  turnSharpLeft(2200);  // Sharp left turn for 2.2 seconds
+  driveForward(3000);   // Drive forward for 5 seconds
+  turnSoftRight(1100);  // Soft right turn for 1.1 seconds
+  driveReverse(5000);   // Reverse for 5 seconds
+
+
+  stopAllMotors();
+  delay(3000); // Wait before repeating the loop
+}
+
+
+// Function to stop all motors
+void stopAllMotors() {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+  digitalWrite(IN5, LOW);
+  digitalWrite(IN6, LOW);
+  digitalWrite(IN7, LOW);
+  digitalWrite(IN8, LOW);
+}
+
+
+// Function to drive forward
+void driveForward(int duration) {
+  digitalWrite(IN1, LOW); // Front left forward
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, LOW); // Back right forward
+  digitalWrite(IN4, HIGH);
+  digitalWrite(IN5, HIGH); // Back left forward
+  digitalWrite(IN6, LOW);
+  digitalWrite(IN7, LOW); // Front right forward
+  digitalWrite(IN8, HIGH);
+
+
+  delay(duration);
+  stopAllMotors();
+}
+
+
+// Function to drive in reverse
+void driveReverse(int duration) {
+  digitalWrite(IN1, HIGH); // Front left reverse
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH); // Back right reverse
+  digitalWrite(IN4, LOW);
+  digitalWrite(IN5, LOW); // Back left reverse
+  digitalWrite(IN6, HIGH);
+  digitalWrite(IN7, HIGH); // Front right reverse
+  digitalWrite(IN8, LOW);
+
+
+  delay(duration);
+  stopAllMotors();
+}
+
+
+// Function for a sharp right turn
+void turnSharpRight(int duration) {
+  digitalWrite(IN1, LOW); // Front left forward
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, LOW); // Back right stopped
+  digitalWrite(IN4, LOW);
+  digitalWrite(IN5, HIGH); // Back left forward
+  digitalWrite(IN6, LOW);
+  digitalWrite(IN7, LOW); // Front right stopped
+  digitalWrite(IN8, LOW);
+
+
+  delay(duration);
+  stopAllMotors();
+}
+
+
+// Function for a sharp left turn
+void turnSharpLeft(int duration) {
+  digitalWrite(IN1, LOW); // Front left stopped
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW); // Back right forward
+  digitalWrite(IN4, HIGH);
+  digitalWrite(IN5, LOW); // Back left stopped
+  digitalWrite(IN6, LOW);
+  digitalWrite(IN7, LOW); // Front right forward
+  digitalWrite(IN8, HIGH);
+
+
+  delay(duration);
+  stopAllMotors();
+}
+
+
+// Function for a soft right turn
+void turnSoftRight(int duration) {
+  digitalWrite(IN1, LOW); // Front left forward
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, LOW); // Back right stopped
+  digitalWrite(IN4, LOW);
+  digitalWrite(IN5, LOW); // Back left stopped
+  digitalWrite(IN6, LOW);
+  digitalWrite(IN7, LOW); // Front right forward
+  digitalWrite(IN8, HIGH);
+
+
+  delay(duration);
+  stopAllMotors();
+}
+
+
