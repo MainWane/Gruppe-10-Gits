@@ -1,0 +1,58 @@
+#include <Arduino.h>
+
+
+// Motor 1 Pins
+#define IN1 27 // Connect to A1-A on H-bridge
+#define IN2 26 // Connect to A1-B on H-bridge
+
+
+// Motor 2 Pins
+#define IN3 25 // Connect to A2-A on H-bridge
+#define IN4 33 // Connect to A2-B on H-bridge
+
+
+void setup() {
+  // Set all motor control pins as output
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+}
+
+
+void loop() {
+  // Motor 1 forward
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+
+
+  // Motor 2 forward
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+
+
+  delay(1000); // Run both motors forward for 1 second
+
+
+  // Motor 1 backward
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+
+
+  // Motor 2 backward
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+
+
+  delay(1000); // Run both motors backward for 1 second
+
+
+  // Stop both motors
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+
+
+  delay(1000); // Wait for 1 second before repeating
+}
