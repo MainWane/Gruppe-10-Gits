@@ -1,0 +1,37 @@
+Kode til 1 motor
+
+
+#include <Arduino.h>
+
+
+#define IN1 27 // Connect to A1-A on H-bridge
+#define IN2 26 // Connect to A1-B on H-bridge
+
+
+void setup() {
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+}
+
+
+void loop() {
+  // Rotate motor forward
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  delay(1000); // Run for 1 second
+
+
+  // Rotate motor backward
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  delay(1000); // Run for 1 second
+
+
+  // Stop motor
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  delay(1000); // Wait for 1 second
+}
+
+
+
