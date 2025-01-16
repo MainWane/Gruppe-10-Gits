@@ -1,12 +1,20 @@
 #include <esp_now.h>
 #include <WiFi.h>
 
+// Thresholds to determine direction
+#define LEFT_THRESHOLD  1000
+#define RIGHT_THRESHOLD 3000
+#define UP_THRESHOLD    1000
+#define DOWN_THRESHOLD  3000
 
-int valueX = 0; // to store the X-axis value
-int valueY = 0; // to store the Y-axis value
+// Command definitions
+#define COMMAND_NO     0x00
+#define COMMAND_LEFT   0x01
+#define COMMAND_RIGHT  0x02
+#define COMMAND_UP     0x04
+#define COMMAND_DOWN   0x08
 
-// Structure  to receive valueX and valueY
-// Must match the sender structure
+// Structure to match the sender structure
 typedef struct struct_message {
   int positionX;
   int positionY;
@@ -15,20 +23,55 @@ typedef struct struct_message {
 // Create a struct_message called myJoystick
 struct_message myJoystick;
 
+// Command variable to store the current joystick command
+int command = COMMAND_NO;
+
 // Callback function that will be executed when data is received
 void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
   memcpy(&myJoystick, incomingData, sizeof(myJoystick));
+  
+  // Reset command
+  command = COMMAND_NO;
+
+  // Determine left or right command based on X-axis value
+  if (myJoystick.positionX < LEFT_THRESHOLD) {
+    command |= COMMAND_LEFT;
+  } else if (myJoystick.positionX > RIGHT_THRESHOLD) {
+    command |= COMMAND_RIGHT;
+  }
+
+  // Determine up or down command based on Y-axis value
+  if (myJoystick.positionY < UP_THRESHOLD) {
+    command |= COMMAND_UP;
+  } else if (myJoystick.positionY > DOWN_THRESHOLD) {
+    command |= COMMAND_DOWN;
+  }
+
+  // Print the received data and the interpreted command
   Serial.print("Bytes received: ");
   Serial.println(len);
-  
   Serial.print("X position: ");
   Serial.println(myJoystick.positionX);
   Serial.print("Y position: ");
   Serial.println(myJoystick.positionY);
+
+  if (command & COMMAND_LEFT) {
+    Serial.println("COMMAND LEFT");
+  }
+  if (command & COMMAND_RIGHT) {
+    Serial.println("COMMAND RIGHT");
+  }
+  if (command & COMMAND_UP) {
+    Serial.println("COMMAND UP");
+  }
+  if (command & COMMAND_DOWN) {
+    Serial.println("COMMAND DOWN");
+  }
   Serial.println();
 }
 
 void setup() {
+  // Initialize Serial Monitor
   Serial.begin(9600);
 
   // Set device as a Wi-Fi Station
@@ -40,10 +83,10 @@ void setup() {
     return;
   }
 
-  // Once ESPNow is successfully Init, register Call Back CB function
-  // OnDataRecv to read received packet info
-  esp_now_register_recv_cb(esp_now_recv_cb_t(OnDataRecv));
+  // Register the receive callback function
+  esp_now_register_recv_cb(OnDataRecv);
 }
 
 void loop() {
+  // The main loop is empty because the logic runs in the callback function
 }
