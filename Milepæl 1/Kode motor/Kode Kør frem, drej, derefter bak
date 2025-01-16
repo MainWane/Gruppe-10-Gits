@@ -1,0 +1,102 @@
+#include <Arduino.h>
+
+
+// Motor 1 Pins (Front Left)
+#define IN1 21 // Connect to A1-A on H-bridge
+#define IN2 19 // Connect to A1-B on H-bridge
+
+
+// Motor 2 Pins (Front Right)
+#define IN3 32 // Connect to A2-A on H-bridge
+#define IN4 33 // Connect to A2-B on H-bridge
+
+
+// Motor 3 Pins (Back Left)
+#define IN5 14 // Connect to B1-A on H-bridge
+#define IN6 27 // Connect to B1-B on H-bridge
+
+
+// Motor 4 Pins (Back Right)
+#define IN7 26 // Connect to B2-A on H-bridge
+#define IN8 25 // Connect to B2-B on H-bridge
+
+
+void setup() {
+  // Set all motor control pins as output
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+  pinMode(IN5, OUTPUT);
+  pinMode(IN6, OUTPUT);
+  pinMode(IN7, OUTPUT);
+  pinMode(IN8, OUTPUT);
+}
+
+
+void loop() {
+  // Drive straight (forward) for 2 seconds
+  // Front Left Motor (Motor 1) forward
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+
+
+  // Front Right Motor (Motor 2) forward
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+
+
+  // Back Left Motor (Motor 3) forward
+  digitalWrite(IN5, HIGH);
+  digitalWrite(IN6, LOW);
+
+
+  // Back Right Motor (Motor 4) forward
+  digitalWrite(IN7, HIGH);
+  digitalWrite(IN8, LOW);
+
+
+  delay(20000); // Run all motors forward for 2 seconds
+
+
+  // Reverse straight for 2 seconds
+  // Front Left Motor (Motor 1) backward
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+
+
+  // Front Right Motor (Motor 2) backward
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+
+
+  // Back Left Motor (Motor 3) backward
+  digitalWrite(IN5, LOW);
+  digitalWrite(IN6, HIGH);
+
+
+  // Back Right Motor (Motor 4) backward
+  digitalWrite(IN7, LOW);
+  digitalWrite(IN8, HIGH);
+
+
+  delay(2000); // Run all motors backward for 2 seconds
+
+
+  // Stop all motors
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+  digitalWrite(IN5, LOW);
+  digitalWrite(IN6, LOW);
+  digitalWrite(IN7, LOW);
+  digitalWrite(IN8, LOW);
+
+
+  delay(1000); // Wait for 1 second before repeating
+}
+
+
+
+
