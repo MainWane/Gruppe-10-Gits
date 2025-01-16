@@ -1,0 +1,116 @@
+#include <Arduino.h>
+
+
+// Motor 1 Pins (Front Left - )
+#define IN1 14 // Connect to B1-A on H-bridge
+#define IN2 27 // Connect to B1-B on H-bridge
+
+
+// Motor 2 Pins (Back Right - )
+#define IN3 26 // Connect to B2-A on H-bridge
+#define IN4 25 // Connect to B2-B on H-bridge
+
+
+// Motor 3 Pins (Back Left - )
+#define IN5 2 // Connect to A1-A on H-bridge
+#define IN6 4 // Connect to A1-B on H-bridge
+
+
+// Motor 4 Pins (Front Right - )
+#define IN7 32 // Connect to A2-A on H-bridge
+#define IN8 33 // Connect to A2-B on H-bridge
+
+
+void setup() {
+  // Set all motor control pins as output
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+  pinMode(IN5, OUTPUT);
+  pinMode(IN6, OUTPUT);
+  pinMode(IN7, OUTPUT);
+  pinMode(IN8, OUTPUT);
+}
+
+
+void loop() {
+  // Drive forward for 3 seconds
+  {
+    digitalWrite(IN1, LOW); // Front left forward
+    digitalWrite(IN2, HIGH);
+    digitalWrite(IN3, LOW); // Back right forward
+    digitalWrite(IN4, HIGH);
+    digitalWrite(IN5, LOW); // Back left forward
+    digitalWrite(IN6, HIGH);
+    digitalWrite(IN7, LOW); // Front right forward
+    digitalWrite(IN8, HIGH);
+
+
+    delay(3000); // Drive forward for 3 seconds
+  }
+
+
+  // Turn right for 2.2 Seconds
+  {
+    digitalWrite(IN1, LOW); // Front left forward
+    digitalWrite(IN2, HIGH);
+    digitalWrite(IN3, LOW); // Back right stopped
+    digitalWrite(IN4, LOW);
+    digitalWrite(IN5, LOW); // Back left forward
+    digitalWrite(IN6, HIGH);
+    digitalWrite(IN7, LOW); // Front right stopped
+    digitalWrite(IN8, LOW);
+
+
+    delay(2200); // Turn right for 2.2 seconds
+  }
+
+
+  // Reverse for 3 seconds
+  {
+    digitalWrite(IN1, HIGH); // Front left reverse
+    digitalWrite(IN2, LOW);
+    digitalWrite(IN3, HIGH); // Back right reverse
+    digitalWrite(IN4, LOW);
+    digitalWrite(IN5, HIGH); // Back left reverse
+    digitalWrite(IN6, LOW);
+    digitalWrite(IN7, HIGH); // Front right reverse
+    digitalWrite(IN8, LOW);
+
+
+    delay(3000); // Reverse for 3 seconds
+  }
+
+
+  // Turn left for 1.1 seconds
+  {
+    digitalWrite(IN1, LOW); // Front left stopped
+    digitalWrite(IN2, LOW);
+    digitalWrite(IN3, LOW); // Back right forward
+    digitalWrite(IN4, HIGH);
+    digitalWrite(IN5, LOW); // Back left stopped
+    digitalWrite(IN6, LOW);
+    digitalWrite(IN7, LOW); // Front right forward
+    digitalWrite(IN8, HIGH);
+
+
+    delay(1100); // Turn left for 1.1 seconds
+  }
+
+
+  // Stop all motors
+  {
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, LOW);
+    digitalWrite(IN3, LOW);
+    digitalWrite(IN4, LOW);
+    digitalWrite(IN5, LOW);
+    digitalWrite(IN6, LOW);
+    digitalWrite(IN7, LOW);
+    digitalWrite(IN8, LOW);
+
+
+    delay(2000); // Wait for 2 second before repeating
+  }
+}
