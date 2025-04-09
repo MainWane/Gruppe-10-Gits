@@ -1,0 +1,75 @@
+/*
+ * This ESP32 code handles a joystick to output directional commands:
+ * LEFT, RIGHT, UP, DOWN based on analog input values.
+ * Created by esp32io.com and enhanced for single joystick functionality.
+ * Released to the public domain.
+ */
+
+#define VRX_PIN  39 // ESP32 pin GPIO39 (ADC3) connected to VRX pin of joystick
+#define VRY_PIN  36 // ESP32 pin GPIO36 (ADC0) connected to VRY pin of joystick
+
+// Thresholds to determine direction
+#define LEFT_THRESHOLD  1000
+#define RIGHT_THRESHOLD 3000
+#define UP_THRESHOLD    1000
+#define DOWN_THRESHOLD  3000
+
+// Command definitions
+#define COMMAND_NO     0x00
+#define COMMAND_LEFT   0x01
+#define COMMAND_RIGHT  0x02
+#define COMMAND_UP     0x04
+#define COMMAND_DOWN   0x08
+
+int valueX = 0; // To store the X-axis value
+int valueY = 0; // To store the Y-axis value
+int command = COMMAND_NO; // To store the current joystick command
+
+void setup() {
+  Serial.begin(9600); // Initialize serial communication at 9600 baud
+  analogSetAttenuation(ADC_11db); // Set ADC attenuation to 11dB (handles ~3.3V input)
+}
+
+void loop() {
+  // Read X and Y analog values from joystick
+  valueX = analogRead(VRX_PIN);
+  valueY = analogRead(VRY_PIN);
+
+  // Reset command
+  command = COMMAND_NO;
+
+  // Determine left or right command based on X-axis value
+  if (valueX < LEFT_THRESHOLD) {
+    command |= COMMAND_LEFT; // Set LEFT command
+  } else if (valueX > RIGHT_THRESHOLD) {
+    command |= COMMAND_RIGHT; // Set RIGHT command
+  }
+
+  // Determine up or down command based on Y-axis value
+  if (valueY < UP_THRESHOLD) {
+    command |= COMMAND_UP; // Set UP command
+  } else if (valueY > DOWN_THRESHOLD) {
+    command |= COMMAND_DOWN; // Set DOWN command
+  }
+
+  // Process and display the current command
+  if (command & COMMAND_LEFT) {
+    Serial.println("COMMAND LEFT");
+    // Add your LEFT movement task here
+  }
+  if (command & COMMAND_RIGHT) {
+    Serial.println("COMMAND RIGHT");
+    // Add your RIGHT movement task here
+  }
+  if (command & COMMAND_UP) {
+    Serial.println("COMMAND UP");
+    // Add your UP movement task here
+  }
+  if (command & COMMAND_DOWN) {
+    Serial.println("COMMAND DOWN");
+    // Add your DOWN movement task here
+  }
+
+  delay(100); // Add a short delay for stability
+}
+

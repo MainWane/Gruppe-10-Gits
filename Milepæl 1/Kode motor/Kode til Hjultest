@@ -1,0 +1,92 @@
+#include <Arduino.h>
+
+
+// Motor 1 Pins (Front Left)
+#define IN1 14 // Connect to B1-A on H-bridge
+#define IN2 27 // Connect to B1-B on H-bridge
+
+
+// Motor 2 Pins (Back Right)
+#define IN3 26 // Connect to B2-A on H-bridge
+#define IN4 25 // Connect to B2-B on H-bridge
+
+
+// Motor 3 Pins (Back Left)
+#define IN5 2  // Connect to A1-A on H-bridge
+#define IN6 4  // Connect to A1-B on H-bridge
+
+
+// Motor 4 Pins (Front Right)
+#define IN7 32 // Connect to A2-A on H-bridge
+#define IN8 33 // Connect to A2-B on H-bridge
+
+
+// Forward declaration of functions
+void stopAllMotors();
+void activateMotor(int pinA, int pinB, int duration);
+
+
+void setup() {
+  // Set all motor control pins as output
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+  pinMode(IN5, OUTPUT);
+  pinMode(IN6, OUTPUT);
+  pinMode(IN7, OUTPUT);
+  pinMode(IN8, OUTPUT);
+
+
+  // Stop all motors at the beginning
+  stopAllMotors();
+}
+
+
+void loop() {
+  // Motor 1: Front Left
+  activateMotor(IN1, IN2, 3000);
+
+
+  // Motor 2: Back Right
+  activateMotor(IN3, IN4, 3000);
+
+
+  // Motor 3: Back Left (fixed reverse direction)
+  activateMotor(IN6, IN5, 3000); // Note: swapped IN5 and IN6
+
+
+  // Motor 4: Front Right (fixed reverse direction)
+  activateMotor(IN8, IN7, 3000); // Note: swapped IN7 and IN8
+
+
+  // Stop all motors
+  stopAllMotors();
+  delay(2000); // Delay before repeating the sequence
+}
+
+
+// Function to activate a motor
+void activateMotor(int pinA, int pinB, int duration) {
+  digitalWrite(pinA, LOW);  // Forward direction
+  digitalWrite(pinB, HIGH);
+  delay(duration);          // Active duration
+  digitalWrite(pinA, LOW);  // Stop motor
+  digitalWrite(pinB, LOW);
+  delay(1000);              // Delay between motors
+}
+
+
+// Function to stop all motors
+void stopAllMotors() {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+  digitalWrite(IN5, LOW);
+  digitalWrite(IN6, LOW);
+  digitalWrite(IN7, LOW);
+  digitalWrite(IN8, LOW);
+}
+
+

@@ -1,0 +1,17 @@
+#include <WiFi.h>
+
+
+void setup() {
+  // Initialiserer Serial-kommunikation med en baud rate på 9600
+  Serial.begin(9600);
+
+
+  // Udskriver ESP32's MAC-adresse til Serial Monitor
+  Serial.println("ESP32 MAC Address:");
+  Serial.println(WiFi.macAddress());
+}
+
+
+void loop() {
+  // Ingen kode i loopet; programmet skal kun bruge setup.
+}
